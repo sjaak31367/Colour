@@ -4,10 +4,10 @@
 class Colour
 {
  public:
-  Colour(int red, int green, int blue) : m_red(red), m_green(green), m_blue(blue) {};
+  Colour(int red, int green, int blue);
   friend std::ostream& operator<<(std::ostream& os, Colour const& colour);
  private:
-  int m_red;
-  int m_green;
-  int m_blue;
+  int m_red = 0;
+  int m_green = 0;
+  int m_blue = 0;
 };
