@@ -4,16 +4,12 @@
 
 int main()
 {
-  std::vector<int> red(255 * 255);
-  std::vector<int> green(255 * 255);
-  std::vector<int> blue(255 * 255);
+  std::vector<Colour> colours(255 * 255, Colour());
 
   // Generator
   for (int y = 0; y < 255; ++y) {
     for (int x = 0; x < 255; ++x) {
-      red[y * 255 + x] = x;
-      green[y * 255 + x] = y;
-      blue[y * 255 + x] = ((x + y) / 2 - 128) * -1 + 127;
+      colours[y * 255 + x].set(x, y, ((x + y) / 2 - 128) * -1 + 127);
     }
   }
 
@@ -51,7 +47,7 @@ int main()
   // RGB
   for (int y = 0; y < 255; y += 5) {
     for (int x = 0; x < 255; x += 5) {
-      std::cout << Colour(red[y * 255 + x], green[y * 255 + x], blue[y * 255 + x]) << "██";
+      std::cout << colours[y * 255 + x] << "██";
     }
     std::cout << std::endl;
   }

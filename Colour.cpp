@@ -3,6 +3,11 @@
 
 Colour::Colour(int red, int green, int blue)
 {
+  set(red, green, blue);
+};
+
+void Colour::set(int red, int green, int blue)
+{
   for (int i = 0; i < 3; ++i) {
     int val = 128;
 
