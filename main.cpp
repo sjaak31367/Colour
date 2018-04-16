@@ -3,6 +3,15 @@
 #include "PerlinNoise.hpp"
 #include "Colour.h"
 
+int clamp(int lo, int hi, int val)
+{
+  if (val < lo || val > hi) {
+    if (val < lo) { val = lo; }
+    else { val = hi; }
+  }
+  return val;
+}
+
 int main()
 {
   #define TERM 1
@@ -17,14 +26,12 @@ int main()
 
   std::vector<Colour> colours(255 * 255, Colour());
   const siv::PerlinNoise perlin(3512);
-  int temp;
 
   // Generator
   for (int y = 0; y < 255; ++y) {
     for (int x = 0; x < 255; ++x) {
       // PerlinNoise(locationX [, locationY [, locationZ]], octave): returns double 0 ~ 1 (-0.04 ~ 0.96)
-      temp = static_cast<int>( perlin.octaveNoise0_1(x / 32.f, y / 32.f, 8) * 256 );
-      colours[y * 255 + x].set(temp, temp, temp);
+      colours[y * 255 + x].set( static_cast<int>(perlin.octaveNoise0_1(x / 32.f, y / 32.f, 8) * 256) );
       /* ColourMap / ColourWheel generator
       colours[y * 255 + x].set(x, y, ((x + y) / 2 - 128) * -1 + 127); */
     }

@@ -5,9 +5,11 @@ class Colour
 {
  public:
   // Constructors
+  Colour(int luminosity);
   Colour(int red, int green, int blue);
   Colour() {};
 
+  void set(int luminosity);
   void set(int red, int green, int blue);
   friend std::ostream& operator<<(std::ostream& os, Colour const& colour);
  private:
