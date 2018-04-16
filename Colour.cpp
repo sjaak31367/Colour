@@ -9,7 +9,7 @@ Colour::Colour(int red, int green, int blue)
 void Colour::set(int red, int green, int blue)
 {
   for (int i = 0; i < 3; ++i) {
-    int val = 128;
+    int val;
 
     // RGB
     if (i == 0) { val = red; }
@@ -17,9 +17,9 @@ void Colour::set(int red, int green, int blue)
     else { val = blue; }
 
     // Confide to 0~255
-    if (0 < val > 255) {
+    if (val < 0 || val > 255) {
       if (val < 0) { val = 0; }
-      else { val = 255;}
+      else { val = 255; }
     }
 
     // Assign to correct m_RGB
