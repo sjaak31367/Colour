@@ -17,7 +17,7 @@ Colour::Colour(int red, int green, int blue)
 
 void Colour::set(int luminosity)
 {
-  luminosity = clamp(0, 255, luminosity);
+  luminosity = clamp(0, MAXCHANNELVALUE, luminosity);
   m_red = luminosity;
   m_green = luminosity;
   m_blue = luminosity;
@@ -33,7 +33,7 @@ void Colour::set(int red, int green, int blue)
     else { val = blue; }
 
     // Confine to 0~255
-    val = clamp(0, 255, val);
+    val = clamp(0, MAXCHANNELVALUE, val);
 
     // Assign to correct m_RGB
     if (i == 0) { m_red = val; }
@@ -42,8 +42,23 @@ void Colour::set(int red, int green, int blue)
   }
 };
 
+
+std::string Colour::getAsText() const
+{
+  std::string temp;
+  temp.reserve(19);
+  temp.append("\e[38;2;");
+  temp.append(std::to_string(m_red));
+  temp.append(";");
+  temp.append(std::to_string(m_green));
+  temp.append(";");
+  temp.append(std::to_string(m_blue));
+  temp.append("m");
+  return temp;
+};
+
 std::ostream& operator<<(std::ostream& os, Colour const& colour)
 {
-  os << "\e[38;2;" << colour.m_red << ";" << colour.m_green << ";" << colour.m_blue << "m";
+  os << colour.getAsText();
   return os;
 };

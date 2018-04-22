@@ -8,7 +8,7 @@ Note that this does require a terminal (emulator) that supports 24-bits colour.
 PerlinNoise.hpp: [github.com/Reputeless/PelinNoise](https://github.com/Reputeless/PerlinNoise)
 
 ###### Building:
-``g++ -std=c++11 -o ./a.out Colour.cpp main.cpp``
+``g++ -std=c++11 -o ./a.out Colour.cpp Storage.cpp main.cpp``
 
 ###### Running: 
 ``./a.out``
