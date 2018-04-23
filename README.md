@@ -15,3 +15,4 @@ PerlinNoise.hpp: [github.com/Reputeless/PelinNoise](https://github.com/Reputeles
 
 ###### Example:
 ![alt text](misc/Example01.png)
+![alt text](misc/Example02.png)

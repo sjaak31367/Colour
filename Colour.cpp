@@ -1,5 +1,7 @@
 #include <iostream>
+#include "config.h"
 #include "Colour.h"
+
 
 extern int clamp(int lo, int hi, int val); // main.cpp
 
@@ -18,9 +20,18 @@ Colour::Colour(int red, int green, int blue)
 void Colour::set(int luminosity)
 {
   luminosity = clamp(0, MAXCHANNELVALUE, luminosity);
+  #if PRINTMODE == 3
+  if (luminosity < WATERLEVEL) {
+    m_blue = luminosity;
+  } else {
+    m_green = luminosity - WATERLEVEL / 2;
+  }
+  #endif // PRINTMODE == 3
+  #if PRINTMODE < 3
   m_red = luminosity;
   m_green = luminosity;
   m_blue = luminosity;
+  #endif // PRINTMODE < 3
 };
 
 void Colour::set(int red, int green, int blue)

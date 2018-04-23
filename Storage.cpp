@@ -15,7 +15,6 @@ Storage::Storage(int sizeX, int sizeY, int sizeZ)
 
 Storage::~Storage()
 {
-  std::cout << sizeof(m_storage) << std::endl;
   delete m_storage;
 };
 
