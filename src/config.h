@@ -7,8 +7,8 @@
 
 // Terminal Window size in chars devided by 2
 //                                 Home : School
-#define TERMINALSIZEX 105 //        105 : 50
-#define TERMINALSIZEY 50 //          50 : 61
+#define TERMINALSIZEX 90 //          90 : 50
+#define TERMINALSIZEY 44 //          44 : 61
 
 
 
