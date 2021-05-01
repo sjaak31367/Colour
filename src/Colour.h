@@ -4,6 +4,7 @@
 
 #define CHANNELSIZE 256
 #define MAXCHANNELVALUE CHANNELSIZE - 1
+#define UNSET -1
 
 class Colour
 {
@@ -17,8 +18,14 @@ class Colour
 
   std::string getAsText() const;
   friend std::ostream& operator<<(std::ostream& os, Colour const& colour);
+  friend bool operator==(Colour const& left, Colour const& right);
  private:
-  int m_red = 0;
-  int m_green = 0;
-  int m_blue = 0;
+  // Foreground
+  int m_red_fg   = UNSET;
+  int m_green_fg = UNSET;
+  int m_blue_fg  = UNSET;
+  // Background
+  int m_red_bg   = UNSET;
+  int m_green_bg = UNSET;
+  int m_blue_bg  = UNSET;
 };
