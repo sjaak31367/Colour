@@ -40,9 +40,5 @@ $(BUILD_DIR)/%.o: src/%.cpp Makefile
 	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
 
 .PHONY: run
-run:
-ifeq (,$(wildcard $(OUTPUT_EXEC)))
-	$(info [!] Executable doesn't exist! Compiling it now.)
-	@$(MAKE) build
-endif
+run: build
 	$(OUTPUT_EXEC)
