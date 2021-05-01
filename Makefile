@@ -1,40 +1,48 @@
+# source: https://stackanswers.net/questions/how-to-make-makefile-recompile-when-a-header-file-is-changed
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -Wall -std=c++11
-LDFLAGS =
+CXXFLAGS = -Wall -Wextra -std=c++11
+LDFLAGS = 
 
 
 # Source and build-output locations
-src_dir = ./src
-build_dir = ./build
-output_exec = ./a.out
-$(shell mkdir -p $(build_dir))
+SRC_DIR = ./src
+BUILD_DIR = ./build
+OUTPUT_EXEC = ./a.out
+$(shell mkdir -p $(BUILD_DIR))
 
 # Source and object files
-src_files = $(wildcard $(src_dir)/*.cpp)
-obj_files = $(addprefix $(build_dir)/,$(notdir $(src_files:.cpp=.o)))
+SOURCES := $(wildcard $(SRC_DIR)/*.cpp)
+OBJECTS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
+DEPENDS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.d,$(SOURCES))
+
+#$(info $$SOURCES = [$(SOURCES)])
+#$(info $$OBJECTS = [$(OBJECTS)])
+#$(info $$DEPENDS = [$(DEPENDS)])
 
 
 # Recipes
-.PHONY: default
-default: run
-
-.PHONY: build
-build: $(obj_files)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(output_exec) $(obj_files)
-
-$(build_dir)/%.o: $(src_dir)/%.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+.PHONY: all
+all: run
 
 .PHONY: clean
 clean:
-	rm -r $(build_dir)
-	rm $(output_exec)
+	rm -r $(BUILD_DIR)
+	rm $(OUTPUT_EXEC)
+
+.PHONY: build
+build: $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(OUTPUT_EXEC) $^
+
+-include $(DEPENDS)
+
+$(BUILD_DIR)/%.o: src/%.cpp Makefile
+	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
 
 .PHONY: run
 run:
-ifeq (,$(wildcard $(output_exec)))
+ifeq (,$(wildcard $(OUTPUT_EXEC)))
 	$(info [!] Executable doesn't exist! Compiling it now.)
 	@$(MAKE) build
 endif
-	$(output_exec)
+	$(OUTPUT_EXEC)
